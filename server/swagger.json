@@ -1,0 +1,484 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "version": "1.0.0",
+    "title": "Yet Another Node.js Blogg Application API",
+    "description": "Yet Another Node.js Blogg Application API",
+    "license": {
+      "name": "MIT",
+      "url": "https://opensource.org/licenses/MIT"
+    }
+  },
+  "host": "localhost:5000",
+  "basePath": "/api",
+  "tags": [
+    {
+      "name": "Users",
+      "description": "API for users in the system"
+    },
+    {
+      "name": "Story",
+      "description": "API for Story in the system"
+    },
+    {
+      "name": "Topics",
+      "description": "API for Topics in the system"
+    },
+    {
+      "name": "Publications",
+      "description": "API for Publications in the system"
+    }
+  ],
+  "schemes": [
+    "http"
+  ],
+  "consumes": [
+    "application/json"
+  ],
+  "produces": [
+    "application/json"
+  ],
+  "securityDefinitions": {
+    "Bearer": {
+      "type": "apiKey",
+      "name": "Authorization",
+      "in": "header"
+    },
+    "JWT": {
+      "type": "apiKey",
+      "name": "token",
+      "in": "header"
+    }
+  },
+  "paths": {
+    "/user": {
+      "post": {
+        "tags": [
+          "Users"
+        ],
+        "description": "Create new user in system",
+        "parameters": [
+          {
+            "name": "user",
+            "in": "body",
+            "description": "User that we want to create"
+          }
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "responses": {
+          "200": {
+            "description": "New user is created"
+          }
+        }
+      },
+      "put": {
+        "summary": "Update user with give ID",
+        "tags": [
+          "Users"
+        ],
+        "parameters": [
+          {
+            "name": "user",
+            "in": "body",
+            "description": "User with new values of properties"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "User is updated"
+          }
+        }
+      }
+    },
+    "/user/profile/:id": {
+      "get": {
+        "tags": [
+          "Users"
+        ],
+        "description": "Get user profile system",
+        "parameters": [
+          {
+            "name": "user",
+            "in": "body",
+            "description": "User that we want to get"
+          }
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "responses": {
+          "200": {
+            "description": "User get"
+          }
+        }
+      }
+    },
+    "/user/{id}": {
+      "parameters": [
+        {
+          "name": "id",
+          "in": "path",
+          "required": true,
+          "description": "ID of user that we want to find",
+          "type": "string"
+        }
+      ],
+      "get": {
+        "tags": [
+          "Users"
+        ],
+        "summary": "Get user with given ID",
+        "responses": {
+          "200": {
+            "description": "User is found"
+          }
+        }
+      }
+    },
+    "/user/follow": {
+      "parameters": [
+        {
+          "name": "id, user_id",
+          "in": "path",
+          "required": true,
+          "description": "Follow user",
+          "type": "string"
+        }
+      ],
+      "post": {
+        "tags": [
+          "Users"
+        ],
+        "summary": "Follow user with id and user_id",
+        "responses": {
+          "200": {
+            "description": "User followed"
+          }
+        }
+      }
+    },
+    "/user/unfollow": {
+      "parameters": [
+        {
+          "name": "id, user_id",
+          "in": "path",
+          "required": true,
+          "description": "unFollow user",
+          "type": "string"
+        }
+      ],
+      "post": {
+        "tags": [
+          "Users"
+        ],
+        "summary": "unFollow user with id and user_id",
+        "responses": {
+          "200": {
+            "description": "User unfollowed"
+          }
+        }
+      }
+    },
+    "/user/followtopic": {
+      "parameters": [
+        {
+          "name": "id, topicId",
+          "in": "path",
+          "required": true,
+          "description": "Follow topic",
+          "type": "string"
+        }
+      ],
+      "post": {
+        "tags": [
+          "Users"
+        ],
+        "summary": "Follow topic with id and topicId",
+        "responses": {
+          "200": {
+            "description": "User followed"
+          }
+        }
+      }
+    },
+    "/user/unfollowtopic": {
+      "parameters": [
+        {
+          "name": "id, topicId",
+          "in": "path",
+          "required": true,
+          "description": "unFollow topic",
+          "type": "string"
+        }
+      ],
+      "post": {
+        "tags": [
+          "Users"
+        ],
+        "summary": "unFollow topic with id and topicId",
+        "responses": {
+          "200": {
+            "description": "User unfollowed"
+          }
+        }
+      }
+    },
+    "/login": {
+      "parameters": [
+        {
+          "name": "username",
+          "in": "body",
+          "required": true,
+          "description": "username",
+          "type": "string"
+        },
+        {
+          "name": "password",
+          "in": "body",
+          "required": true,
+          "description": "password",
+          "type": "string"
+        }
+      ],
+      "post": {
+        "tags": [
+          "Users"
+        ],
+        "summary": "User signIn",
+        "responses": {
+          "200": {
+            "description": "Logged In"
+          }
+        }
+      }
+    },
+    "/story": {
+      "parameters": [
+        {}
+      ],
+      "post": {
+        "tags": [
+          "Story"
+        ],
+        "description": "Create new Story in system",
+        "parameters": [
+          {
+            "name": "story",
+            "in": "body",
+            "description": "story that we want to create"
+          }
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "responses": {
+          "200": {
+            "description": "New story is created"
+          }
+        }
+      },
+      "get": {
+        "security": {
+          "Bearer": []
+        },
+        "tags": [
+          "Story"
+        ],
+        "summary": "Get story",
+        "responses": {
+          "200": {
+            "description": "Get story"
+          }
+        }
+      }
+    },
+    "/story/{id}": {
+      "delete": {
+        "summary": "Delete a story",
+        "tags": [
+          "Story"
+        ],
+        "responses": {
+          "200": {
+            "description": "story is deleted"
+          }
+        }
+      },
+      "get": {
+        "summary": "Get a story",
+        "tags": [
+          "Story"
+        ],
+        "responses": {
+          "200": {
+            "description": "story is Get"
+          }
+        }
+      },
+      "put": {
+        "summary": "Update story with give ID",
+        "tags": [
+          "Story"
+        ],
+        "parameters": [
+          {
+            "name": "story",
+            "in": "body",
+            "description": "story with new values of properties"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "story is updated"
+          }
+        }
+      }
+    },
+    "/story/topic/{id}": {
+      "get": {
+        "summary": "Get stories by topic",
+        "tags": [
+          "Story"
+        ],
+        "responses": {
+          "200": {
+            "description": "story is Get"
+          }
+        }
+      },
+      "/story/publication/{id}": {
+        "get": {
+          "summary": "Get stories of publication",
+          "tags": [
+            "Story"
+          ],
+          "responses": {
+            "200": {
+              "description": "story is Get"
+            }
+          }
+        }
+      }
+    },
+    "/topic": {
+      "get": {
+        "summary": "Get topics",
+        "tags": [
+          "Topics"
+        ],
+        "responses": {
+          "200": {
+            "description": "topic is Get"
+          }
+        }
+      },
+      "post": {
+        "summary": "post topics",
+        "tags": [
+          "Topics"
+        ],
+        "responses": {
+          "200": {
+            "description": "topic is post"
+          }
+        }
+      }
+    },
+    "/topic/{id}": {
+      "get": {
+        "summary": "Get a topic",
+        "tags": [
+          "Topics"
+        ],
+        "responses": {
+          "200": {
+            "description": "topic is Get"
+          }
+        }
+      },
+      "put": {
+        "summary": "update topic",
+        "tags": [
+          "Topics"
+        ],
+        "responses": {
+          "200": {
+            "description": "topic is updated"
+          }
+        }
+      },
+      "delete": {
+        "summary": "delete topic",
+        "tags": [
+          "Topics"
+        ],
+        "responses": {
+          "200": {
+            "description": "topic is deleted"
+          }
+        }
+      }
+    },
+    "/publication": {
+      "get": {
+        "summary": "Get publication",
+        "tags": [
+          "Publications"
+        ],
+        "responses": {
+          "200": {
+            "description": "publication is Get"
+          }
+        }
+      },
+      "post": {
+        "summary": "post publication",
+        "tags": [
+          "Publications"
+        ],
+        "responses": {
+          "200": {
+            "description": "publication is post"
+          }
+        }
+      }
+    },
+    "/publication/{id}": {
+      "get": {
+        "summary": "Get a publication",
+        "tags": [
+          "Publications"
+        ],
+        "responses": {
+          "200": {
+            "description": "publication is Get"
+          }
+        }
+      },
+      "put": {
+        "summary": "update publication",
+        "tags": [
+          "Publications"
+        ],
+        "responses": {
+          "200": {
+            "description": "publication is updated"
+          }
+        }
+      },
+      "delete": {
+        "summary": "delete publication",
+        "tags": [
+          "Publications"
+        ],
+        "responses": {
+          "200": {
+            "description": "publication is deleted"
+          }
+        }
+      }
+    }
+  }
+}
