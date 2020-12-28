@@ -53,7 +53,7 @@ module.exports = {
      * article_id
      */
     getArticleByTopic: (req, res, next) => {
-        Article.find({ "topics": { "$in": [req.params.id] } })
+        Article.find({ "topics": { "$in": req.params.id } })
             .populate('author').exec((err, article) => {
                 if (err)
                     res.send(err)

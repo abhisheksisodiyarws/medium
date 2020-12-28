@@ -6,7 +6,7 @@ module.exports = (router) => {
      * get all story
      */
     router
-        .route('/story')
+        .route('/storyall')
         .get(articlecontroller.getAll)
     /**
      * get  story according to topic

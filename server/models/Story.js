@@ -6,12 +6,12 @@ let ArticleSchema = new mongoose.Schema(
         title: String,
         description: String,
         feature_img: String,
-        // topics: [
-        //     {
-        //         type: mongoose.Schema.Types.ObjectId,
-        //         ref: 'Topic'                
-        //     }
-        // ],
+        topics: [
+            {
+                type: mongoose.Schema.Types.ObjectId,
+                ref: 'Topic'                
+            }
+        ],
         publication:
             {
                 type: mongoose.Schema.Types.ObjectId,

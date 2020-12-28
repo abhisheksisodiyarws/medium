@@ -59,9 +59,12 @@
         "description": "Create new user in system",
         "parameters": [
           {
-            "name": "user",
+            "name": "body",
             "in": "body",
-            "description": "User that we want to create"
+            "description": "User that we want to create",
+            "schema": {
+              "$ref": "#/definitions/userBody"
+            }
           }
         ],
         "produces": [
@@ -80,9 +83,12 @@
         ],
         "parameters": [
           {
-            "name": "user",
+            "name": "body",
             "in": "body",
-            "description": "User with new values of properties"
+            "description": "User that we want to update",
+            "schema": {
+              "$ref": "#/definitions/userUpdateBody"
+            }
           }
         ],
         "responses": {
@@ -92,7 +98,7 @@
         }
       }
     },
-    "/user/profile/:id": {
+    "/user/profile": {
       "get": {
         "tags": [
           "Users"
@@ -100,8 +106,9 @@
         "description": "Get user profile system",
         "parameters": [
           {
-            "name": "user",
-            "in": "body",
+            "name": "id",
+            "in": "path",
+            "type": "string",
             "description": "User that we want to get"
           }
         ],
@@ -115,36 +122,15 @@
         }
       }
     },
-    "/user/{id}": {
-      "parameters": [
-        {
-          "name": "id",
-          "in": "path",
-          "required": true,
-          "description": "ID of user that we want to find",
-          "type": "string"
-        }
-      ],
-      "get": {
-        "tags": [
-          "Users"
-        ],
-        "summary": "Get user with given ID",
-        "responses": {
-          "200": {
-            "description": "User is found"
-          }
-        }
-      }
-    },
     "/user/follow": {
       "parameters": [
         {
-          "name": "id, user_id",
-          "in": "path",
-          "required": true,
-          "description": "Follow user",
-          "type": "string"
+          "name": "body",
+          "in": "body",
+          "description": "User that we want to follow",
+          "schema": {
+            "$ref": "#/definitions/userFollowBody"
+          }
         }
       ],
       "post": {
@@ -162,11 +148,12 @@
     "/user/unfollow": {
       "parameters": [
         {
-          "name": "id, user_id",
-          "in": "path",
-          "required": true,
-          "description": "unFollow user",
-          "type": "string"
+          "name": "body",
+          "in": "body",
+          "description": "User that we want to unfollow",
+          "schema": {
+            "$ref": "#/definitions/userFollowBody"
+          }
         }
       ],
       "post": {
@@ -184,11 +171,12 @@
     "/user/followtopic": {
       "parameters": [
         {
-          "name": "id, topicId",
-          "in": "path",
-          "required": true,
-          "description": "Follow topic",
-          "type": "string"
+          "name": "body",
+          "in": "body",
+          "description": "Topic that we want to follow",
+          "schema": {
+            "$ref": "#/definitions/userTopicBody"
+          }
         }
       ],
       "post": {
@@ -206,11 +194,12 @@
     "/user/unfollowtopic": {
       "parameters": [
         {
-          "name": "id, topicId",
-          "in": "path",
-          "required": true,
-          "description": "unFollow topic",
-          "type": "string"
+          "name": "body",
+          "in": "body",
+          "description": "Topic that we want to unfollow",
+          "schema": {
+            "$ref": "#/definitions/userTopicBody"
+          }
         }
       ],
       "post": {
@@ -228,18 +217,12 @@
     "/login": {
       "parameters": [
         {
-          "name": "username",
+          "name": "body",
           "in": "body",
-          "required": true,
-          "description": "username",
-          "type": "string"
-        },
-        {
-          "name": "password",
-          "in": "body",
-          "required": true,
-          "description": "password",
-          "type": "string"
+          "description": "LOGIN USER",
+          "schema": {
+            "$ref": "#/definitions/userLoginBody"
+          }
         }
       ],
       "post": {
@@ -254,31 +237,7 @@
         }
       }
     },
-    "/story": {
-      "parameters": [
-        {}
-      ],
-      "post": {
-        "tags": [
-          "Story"
-        ],
-        "description": "Create new Story in system",
-        "parameters": [
-          {
-            "name": "story",
-            "in": "body",
-            "description": "story that we want to create"
-          }
-        ],
-        "produces": [
-          "application/json"
-        ],
-        "responses": {
-          "200": {
-            "description": "New story is created"
-          }
-        }
-      },
+    "/storyall": {
       "get": {
         "security": {
           "Bearer": []
@@ -294,8 +253,39 @@
         }
       }
     },
-    "/story/{id}": {
+    "/story": {
+      "post": {
+        "tags": [
+          "Story"
+        ],
+        "description": "Create new Story in system",
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "description": "ADD STORY",
+            "schema": {
+              "$ref": "#/definitions/addStoryBody"
+            }
+          }
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "responses": {
+          "200": {
+            "description": "New story is created"
+          }
+        }
+      },
       "delete": {
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "Delete STORY"
+          }
+        ],
         "summary": "Delete a story",
         "tags": [
           "Story"
@@ -307,6 +297,13 @@
         }
       },
       "get": {
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "Get a STORY"
+          }
+        ],
         "summary": "Get a story",
         "tags": [
           "Story"
@@ -324,9 +321,9 @@
         ],
         "parameters": [
           {
-            "name": "story",
-            "in": "body",
-            "description": "story with new values of properties"
+            "name": "id",
+            "in": "path",
+            "description": "Update STORY"
           }
         ],
         "responses": {
@@ -336,8 +333,15 @@
         }
       }
     },
-    "/story/topic/{id}": {
+    "/story/topic": {
       "get": {
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "Get STORY by topic"
+          }
+        ],
         "summary": "Get stories by topic",
         "tags": [
           "Story"
@@ -347,22 +351,29 @@
             "description": "story is Get"
           }
         }
-      },
-      "/story/publication/{id}": {
-        "get": {
-          "summary": "Get stories of publication",
-          "tags": [
-            "Story"
-          ],
-          "responses": {
-            "200": {
-              "description": "story is Get"
-            }
+      }
+    },
+    "/story/publication": {
+      "get": {
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "Get STORY by publication"
+          }
+        ],
+        "summary": "Get stories of publication",
+        "tags": [
+          "Story"
+        ],
+        "responses": {
+          "200": {
+            "description": "story is Get"
           }
         }
       }
     },
-    "/topic": {
+    "/topicall": {
       "get": {
         "summary": "Get topics",
         "tags": [
@@ -370,11 +381,23 @@
         ],
         "responses": {
           "200": {
-            "description": "topic is Get"
+            "description": "topics Get"
           }
         }
-      },
+      }
+    },
+    "/topic": {
       "post": {
+        "parameters": [
+          {
+            "name": "body",
+            "in": "boyd",
+            "description": "add a topic",
+            "schema": {
+              "$ref": "#/definitions/addTopicBody"
+            }
+          }
+        ],
         "summary": "post topics",
         "tags": [
           "Topics"
@@ -384,10 +407,15 @@
             "description": "topic is post"
           }
         }
-      }
-    },
-    "/topic/{id}": {
+      },
       "get": {
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "get a topic"
+          }
+        ],
         "summary": "Get a topic",
         "tags": [
           "Topics"
@@ -399,6 +427,13 @@
         }
       },
       "put": {
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "get a topic"
+          }
+        ],
         "summary": "update topic",
         "tags": [
           "Topics"
@@ -410,6 +445,13 @@
         }
       },
       "delete": {
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "get a topic"
+          }
+        ],
         "summary": "delete topic",
         "tags": [
           "Topics"
@@ -421,7 +463,7 @@
         }
       }
     },
-    "/publication": {
+    "/publicationall": {
       "get": {
         "summary": "Get publication",
         "tags": [
@@ -432,8 +474,20 @@
             "description": "publication is Get"
           }
         }
-      },
+      }
+    },
+    "/publication": {
       "post": {
+        "parameters": [
+          {
+            "name": "body",
+            "in": "boyd",
+            "description": "add a publication",
+            "schema": {
+              "$ref": "#/definitions/addPublicationBody"
+            }
+          }
+        ],
         "summary": "post publication",
         "tags": [
           "Publications"
@@ -443,10 +497,15 @@
             "description": "publication is post"
           }
         }
-      }
-    },
-    "/publication/{id}": {
+      },
       "get": {
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "get a publication"
+          }
+        ],
         "summary": "Get a publication",
         "tags": [
           "Publications"
@@ -458,6 +517,13 @@
         }
       },
       "put": {
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "get a publication"
+          }
+        ],
         "summary": "update publication",
         "tags": [
           "Publications"
@@ -469,6 +535,13 @@
         }
       },
       "delete": {
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "get a publication"
+          }
+        ],
         "summary": "delete publication",
         "tags": [
           "Publications"
@@ -479,6 +552,49 @@
           }
         }
       }
+    }
+  },
+  "definitions": {
+    "userBody": {
+      "username": "string",
+      "password": "string",
+      "firstname": "string",
+      "lastname": "string"
+    },
+    "userUpdateBody": {
+      "id": "string",
+      "username": "string",
+      "password": "string",
+      "firstname": "string",
+      "lastname": "string"
+    },
+    "userFollowBody": {
+      "id": "string",
+      "user_id": "string"
+    },
+    "userTopicBody": {
+      "id": "string",
+      "topicId": "string"
+    },
+    "userLoginBody": {
+      "username": "string",
+      "password": "string"
+    },
+    "addStoryBody": {
+      "title": "string",
+      "description": "string",
+      "author_id": "string",
+      "topics": {
+        "type": "array",
+        "items": "string"
+      },
+      "publication": "string"
+    },
+    "addTopicBody": {
+      "topic": "string"
+    },
+    "addPublicationBody": {
+      "publication": "string"
     }
   }
 }

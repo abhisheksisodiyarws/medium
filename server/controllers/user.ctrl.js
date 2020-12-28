@@ -82,7 +82,7 @@ module.exports = {
         }).catch(next)
     },
     getUserProfile: (req, res, next) => {
-        User.findById({ '_id': req.params.id }, { 'password': 0 }).then
+        User.findById( req.params.id, { 'password': 0 }).then
             ((_user) => {
                 return Article.find({ 'author': req.params.id }).then((_articles) => {
                     return res.json({ user: _user, articles: _articles })
